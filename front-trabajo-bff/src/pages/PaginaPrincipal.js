@@ -1,13 +1,19 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import AppBarComponent from "../components/AppBarComponent";
-import Berries from "./Berries";
-import Moves from "./Moves";
-import PokemonSpecies from "./PokemonSpecies";
 
 function PaginaPrincipal() {
     return (
         <Box>
             <AppBarComponent/>
+            <Typography variant="h1" gutterBottom>
+                <br/>Welcome!
+            </Typography>
+            <Typography variant="h4" gutterBottom>
+                This website uses 3 endpoints from the public API "https://pokeapi.co/":<br/>
+                - pokemon-species<br/>
+                - moves<br/>
+                - berries<br/>
+            </Typography>
         </Box>
     );
 }

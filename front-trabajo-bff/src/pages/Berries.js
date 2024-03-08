@@ -5,11 +5,13 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from "../components/Title";
-import { Box } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
 import AppBarComponent from "../components/AppBarComponent";
 
 function Berries() {
     const [data, setData] = useState({ results: [] });
+    const [searchId, setSearchId] = useState("");
+    const [searchResult, setSearchResult] = useState(null);
 
     useEffect(() => {
         (async () => {
@@ -25,11 +27,22 @@ function Berries() {
         })();
     }, []);
 
+    const handleSearch = async () => {
+        if (searchId === "") {
+            setSearchResult(null);
+        } else {
+            const item = data.results.find(item => item.id === parseInt(searchId));
+            setSearchResult(item ? [item] : []);
+        }
+    };
+
     return (
         <Box>
             <AppBarComponent/>
             <React.Fragment>
                 <Title>Berries</Title>
+                <TextField label="ID" value={searchId} onChange={(e) => setSearchId(e.target.value)} />
+                <Button variant="contained" color="primary" onClick={handleSearch}>Search</Button>
                 <Table size="small">
                     <TableHead>
                         <TableRow>
@@ -44,7 +57,7 @@ function Berries() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {data.results.map((item) => (
+                    {(searchResult || data.results).map((item) => (
                         <TableRow key={item.id}>
                             <TableCell>{item.id}</TableCell>
                             <TableCell>{item.name}</TableCell>
